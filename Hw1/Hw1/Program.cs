@@ -6,64 +6,115 @@ namespace Hw1
     {
         static void Main(string[] args)
         {
-            bool start = true;
-            while (start)
+            bool overall = true;
+            while (overall)
             {
-                Console.WriteLine("Выберите задание от 1 до 3.");
-                int chosedTask;
-                int numForTask1;
-                long numForTask3;
-                int chosedMethod;
-                int.TryParse(Console.ReadLine(), out chosedTask);
-
-                switch (chosedTask)
+                Console.WriteLine("Выберите домашнее задание 1 или 2");
+                int chosedHw;
+                int.TryParse(Console.ReadLine(), out chosedHw);
+                switch (chosedHw)
                 {
                     case 1:
-                        Console.WriteLine("Введите целое число");
-                        int.TryParse(Console.ReadLine(), out numForTask1);
-                        bool ans = IsNumberSimple(numForTask1);
-                        if (ans == true)
-                        {
-                            Console.WriteLine($"{numForTask1} это простое");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"{numForTask1} это не простое");
-                        }
+                        Hw1();
                         break;
                     case 2:
-                        Console.WriteLine("Сложность функции O(N^3).");
-                        break;
-                    case 3:
-                        Console.WriteLine("Введите целое число");
-                        long.TryParse(Console.ReadLine(), out numForTask3);
-                        Console.WriteLine("Выберите способ:\n1 - рекурсией\n2 - через цикл");
-                        int.TryParse(Console.ReadLine(), out chosedMethod);
-                        switch (chosedMethod)
-                        {
-                            case 1:
-                                long fibNumberWithRecursion = GetFibNumberRecursion(numForTask3);
-                                Console.WriteLine($"Для номера {numForTask3} - число фиббоначи {fibNumberWithRecursion}");
-                                break;
-                            case 2:
-                                long fibNumberWithFor = GetFibNumberWithFor(numForTask3);
-                                Console.WriteLine($"Для номера {numForTask3} - число фиббоначи {fibNumberWithFor}");
-                                break;
-                            default:
-                                Console.WriteLine("Такого метода нет!");
-                                break;
-                        }
+                        Hw2();
                         break;
                     default:
-                        Console.WriteLine("Такого задания еще нет!");
+                        Console.WriteLine("Такого дз еще нет");
                         break;
                 }
-                Console.WriteLine("Хотите повторить? y/n");
+                Console.WriteLine("Хотите повторно выбрать дз? y/n");
                 string refresh = Console.ReadLine();
                 if (refresh == "n")
                 {
-                    start = false;
+                    overall = false;
                 }
+            }
+            void Hw1()
+            {
+                bool start = true;
+                while (start)
+                {
+                    Console.WriteLine("Выберите задание от 1 до 3.");
+                    int chosedTask;
+                    int numForTask1;
+                    long numForTask3;
+                    int chosedMethod;
+                    int.TryParse(Console.ReadLine(), out chosedTask);
+
+                    switch (chosedTask)
+                    {
+                        case 1:
+                            Console.WriteLine("Введите целое число");
+                            int.TryParse(Console.ReadLine(), out numForTask1);
+                            bool ans = IsNumberSimple(numForTask1);
+                            if (ans == true)
+                            {
+                                Console.WriteLine($"{numForTask1} это простое");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"{numForTask1} это не простое");
+                            }
+                            break;
+                        case 2:
+                            Console.WriteLine("Сложность функции O(N^3).");
+                            break;
+                        case 3:
+                            Console.WriteLine("Введите целое число");
+                            long.TryParse(Console.ReadLine(), out numForTask3);
+                            Console.WriteLine("Выберите способ:\n1 - рекурсией\n2 - через цикл");
+                            int.TryParse(Console.ReadLine(), out chosedMethod);
+                            switch (chosedMethod)
+                            {
+                                case 1:
+                                    long fibNumberWithRecursion = GetFibNumberRecursion(numForTask3);
+                                    Console.WriteLine($"Для номера {numForTask3} - число фиббоначи {fibNumberWithRecursion}");
+                                    break;
+                                case 2:
+                                    long fibNumberWithFor = GetFibNumberWithFor(numForTask3);
+                                    Console.WriteLine($"Для номера {numForTask3} - число фиббоначи {fibNumberWithFor}");
+                                    break;
+                                default:
+                                    Console.WriteLine("Такого метода нет!");
+                                    break;
+                            }
+                            break;
+                        default:
+                            Console.WriteLine("Такого задания еще нет!");
+                            break;
+                    }
+                    Console.WriteLine("Хотите повторить? y/n");
+                    string refresh = Console.ReadLine();
+                    if (refresh == "n")
+                    {
+                        start = false;
+                    }
+                }
+            }
+            void Hw2()
+            {
+                LinkedList list = new LinkedList();
+
+                list.AddNode(10);
+                list.GetCount();
+                list.RemoveNode(list.FindNode(10));
+
+                int[] intArray = new int[] { 1, 2, 40, 15, 25, 3, 0, 10, 6, 22};
+
+                BubbleSort(intArray); // Асс
+
+                for (int i = 0; i < intArray.Length; i++)
+                {
+                    Console.Write(intArray[i] + " ");
+                }
+
+                Console.WriteLine();
+
+                int findNumber = BinarySearch(intArray, 40); // Ассимптотическая сложность O(log(n))]
+                Console.WriteLine(findNumber);
+                Console.ReadLine();
             }
         }
         public static bool IsNumberSimple(int num)
@@ -113,6 +164,156 @@ namespace Hw1
                 second = fibonacci;
             }
             return fibonacci;
+        }
+        public static void BubbleSort(int[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                for (int j = 0; j < array.Length - 1; j++)
+                {
+                    if (array[j] > array[j + 1])
+                    {
+                        var temp = array[j + 1];
+                        array[j + 1] = array[j];
+                        array[j] = temp;
+                    }
+                }
+            }
+        }
+
+
+        public static int BinarySearch(int[] inputArray, int searchValue)
+        {
+            int min = 0;
+            int max = inputArray.Length - 1;
+            while (min <= max)
+            {
+                int mid = (min + max) / 2;
+                if (searchValue == inputArray[mid])
+                {
+                    return mid;
+                }
+                else if (searchValue < inputArray[mid])
+                {
+                    max = mid - 1;
+                }
+                else
+                {
+                    min = mid + 1;
+                }
+            }
+            return -1;
+        }
+    }
+    public class Node
+    {
+        public int Value { get; set; }
+        public Node NextNode { get; set; }
+        public Node PrevNode { get; set; }
+    }
+    public interface ILinkedList
+    {
+        int GetCount();
+        void AddNode(int value);
+        void AddNodeAfter(Node node, int value);
+        void RemoveNode(int index);
+        void RemoveNode(Node node);
+        Node FindNode(int searchValue);
+    }
+    public class LinkedList : ILinkedList
+    {
+        private Node head = new Node();
+        private Node tail = new Node();
+
+        public LinkedList()
+        {
+            head.NextNode = tail;
+            tail.PrevNode = head;
+        }
+        public int GetCount()
+        {
+            int count = 0;
+            Node current = head;
+            while (current != null)
+            {
+                current = current.NextNode;
+                count++;
+            }
+            return count;
+        }
+
+        public void AddNode(int value)
+        {
+            var node = head;
+
+            while (node.NextNode != null)
+            {
+                node = node.NextNode;
+            }
+
+            var newNode = new Node()
+            {
+                Value = value,
+                PrevNode = node
+            };
+
+            node.NextNode = newNode;
+        }
+
+        public void AddNodeAfter(Node node, int value)
+        {
+            var newNode = new Node { 
+                Value = value,
+                NextNode = node.NextNode,
+                PrevNode = node
+            };
+            node.NextNode = newNode;
+        }
+
+        public void RemoveNode(int index)
+        {
+            int count = 0;
+            Node current = head;
+            while (current != null && count < index)
+            {
+                current = current.NextNode;
+                count++;
+            }
+            if (count == index)
+            {
+                RemoveNode(current);
+            }
+            else
+            {
+                Console.WriteLine($"Узел с индексом - {index} не существует!");
+            }
+        }
+
+        public void RemoveNode(Node node)
+        {
+            var prev = node.PrevNode;
+            var next = node.NextNode;
+
+            if (next != null)
+            {
+                next.PrevNode = prev;
+            }
+            prev.NextNode = next;
+        }
+        public Node FindNode(int searchValue)
+        {
+            Node current = head;
+
+            while (current != null)
+            {
+                if (current.Value == searchValue)
+                {
+                    return current;
+                }
+                current = current.NextNode;
+            }
+
+            return null;
         }
     }
 }
