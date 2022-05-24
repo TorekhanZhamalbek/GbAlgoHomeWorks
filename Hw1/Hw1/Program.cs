@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
 
 namespace Hw1
 {
@@ -9,7 +12,7 @@ namespace Hw1
             bool overall = true;
             while (overall)
             {
-                Console.WriteLine("Выберите домашнее задание 1 или 2");
+                Console.WriteLine("Выберите домашнее задание от 1 до 3");
                 int chosedHw;
                 int.TryParse(Console.ReadLine(), out chosedHw);
                 switch (chosedHw)
@@ -19,6 +22,9 @@ namespace Hw1
                         break;
                     case 2:
                         Hw2();
+                        break;
+                    case 3:
+                        Hw3();
                         break;
                     default:
                         Console.WriteLine("Такого дз еще нет");
@@ -114,6 +120,20 @@ namespace Hw1
 
                 int findNumber = BinarySearch(intArray, 40); // Ассимптотическая сложность O(log(n))]
                 Console.WriteLine(findNumber);
+                Console.ReadLine();
+            }
+            void Hw3()
+            {
+                Console.WriteLine("Количество точек\t|\tPointStructDouble\t|\tPointClassDouble\t|\tRatio");
+                for (int i = 0; i < 5; i++)
+                {
+                    int length = (i + 1) * 500000;
+                    object[] pointStructArray = PointHelper.GenerateSequenceStruct(length);
+                    object[] pointClassArray = PointHelper.GenerateSequenceClass(length);
+                    TimeSpan timeStruct = PointHelper.DoTestStruct(pointStructArray);
+                    TimeSpan timeClass = PointHelper.DoTestClass(pointClassArray);
+                    Console.WriteLine($"{length}\t|\t{timeStruct}\t|\t{timeClass}\t|\t{timeClass.Divide(timeStruct)}");
+                }
                 Console.ReadLine();
             }
         }
