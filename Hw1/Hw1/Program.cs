@@ -12,7 +12,7 @@ namespace Hw1
             bool overall = true;
             while (overall)
             {
-                Console.WriteLine("Выберите домашнее задание от 1 до 3");
+                Console.WriteLine("Выберите домашнее задание от 1 до 4");
                 int chosedHw;
                 int.TryParse(Console.ReadLine(), out chosedHw);
                 switch (chosedHw)
@@ -25,6 +25,9 @@ namespace Hw1
                         break;
                     case 3:
                         Hw3();
+                        break;
+                    case 4:
+                        Hw4();
                         break;
                     default:
                         Console.WriteLine("Такого дз еще нет");
@@ -135,6 +138,22 @@ namespace Hw1
                     Console.WriteLine($"{length}\t|\t{timeStruct}\t|\t{timeClass}\t|\t{timeClass.Divide(timeStruct)}");
                 }
                 Console.ReadLine();
+            }
+            void Hw4()
+            {
+                var binaryTree = new BinaryTree();
+                binaryTree.Add(8);
+                binaryTree.Add(3);
+                binaryTree.Add(10);
+                binaryTree.Add(1);
+                binaryTree.Add(6);
+                binaryTree.PrintTree();
+                Console.WriteLine(new string('-', 40));
+                binaryTree.DeleteNote(binaryTree.FindNoteByValue(3));
+                binaryTree.PrintTree();
+                Console.WriteLine(new string('-', 40));
+                binaryTree.DeleteNote(binaryTree.FindNoteByValue(8));
+                binaryTree.PrintTree();
             }
         }
         public static bool IsNumberSimple(int num)
