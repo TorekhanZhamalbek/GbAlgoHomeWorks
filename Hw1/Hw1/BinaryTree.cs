@@ -241,5 +241,83 @@ namespace Hw1
                 PrintTree(startNode.RightChild, indent);
             }
         }
+
+        public TreeNode BFS(int value)
+        {
+            Queue<TreeNode> Q = new Queue<TreeNode>();
+            Q.Enqueue(Root);
+
+            while (Q.Count > 0)
+            {
+                foreach (var node in Q)
+                {
+                    Console.Write(node.Value + " ");
+                }
+
+                Console.WriteLine();
+
+                TreeNode tmp = Q.Dequeue();
+                if (tmp.Value == value)
+                {
+                    return tmp;
+                }
+                else
+                {
+                    if (tmp.LeftChild != null && tmp.RightChild != null)
+                    {
+                        Q.Enqueue(tmp.LeftChild);
+                        Q.Enqueue(tmp.RightChild);
+                    }
+                    else if (tmp.LeftChild != null && tmp.RightChild == null)
+                    {
+                        Q.Enqueue(tmp.LeftChild);
+                    }
+                    else if (tmp.LeftChild == null && tmp.RightChild != null)
+                    {
+                        Q.Enqueue(tmp.RightChild);
+                    }
+                }
+            }
+            return null;
+        }
+
+        public TreeNode DFS(int value)
+        {
+            Stack<TreeNode> S = new Stack<TreeNode>();
+            S.Push(Root);
+
+            while (S.Count > 0)
+            {
+                foreach (var node in S)
+                {
+                    Console.Write(node.Value + " ");
+                }
+
+                Console.WriteLine();
+
+                TreeNode tmp = S.Pop();
+                if (tmp.Value == value)
+                {
+                    return tmp;
+                }
+                else
+                {
+                    if (tmp.LeftChild != null && tmp.RightChild != null)
+                    {
+                        S.Push(tmp.RightChild);
+                        S.Push(tmp.LeftChild);
+                    }
+                    else if (tmp.LeftChild != null && tmp.RightChild == null)
+                    {
+                        S.Push(tmp.LeftChild);
+                    }
+                    else if (tmp.LeftChild == null && tmp.RightChild != null)
+                    {
+                        S.Push(tmp.RightChild);
+                    }
+                }
+            }
+            return null;
+        }
     }
 }
