@@ -12,7 +12,7 @@ namespace Hw1
             bool overall = true;
             while (overall)
             {
-                Console.WriteLine("Выберите домашнее задание от 1 до 4");
+                Console.WriteLine("Выберите домашнее задание от 1 до 5");
                 int chosedHw;
                 int.TryParse(Console.ReadLine(), out chosedHw);
                 switch (chosedHw)
@@ -28,6 +28,9 @@ namespace Hw1
                         break;
                     case 4:
                         Hw4();
+                        break;
+                    case 5:
+                        Hw5();
                         break;
                     default:
                         Console.WriteLine("Такого дз еще нет");
@@ -154,6 +157,20 @@ namespace Hw1
                 Console.WriteLine(new string('-', 40));
                 binaryTree.DeleteNote(binaryTree.FindNoteByValue(8));
                 binaryTree.PrintTree();
+            }
+            void Hw5()
+            {
+                var binaryTree = new BinaryTree();
+                binaryTree.Add(8);
+                binaryTree.Add(3);
+                binaryTree.Add(10);
+                binaryTree.Add(1);
+                binaryTree.Add(6);
+                binaryTree.PrintTree();
+                var findByBFS = binaryTree.BFS(1);
+                Console.WriteLine("Найденное значение по BFS = " + findByBFS.Value);
+                var findByDFS = binaryTree.DFS(1);
+                Console.WriteLine("Найденное значение по DFS = " + findByDFS.Value);
             }
         }
         public static bool IsNumberSimple(int num)
